@@ -22,6 +22,7 @@ def tag_encoder(tags):
             
     return encoded_tags
 
+
 def genre_encoder(movies):
     genres = []
     unique_genres = set()
