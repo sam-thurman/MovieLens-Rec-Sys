@@ -65,3 +65,15 @@ def evaluate_model():
                                 predictionCol="prediction")
     rmse = evaluator.evaluate(predictions)
     print("RMSE = " + str(rmse))
+    
+def user_liked_compared_recommended(ratings_df, movies_df, user_recommendation_df, user_id):
+    top_movies_and_rankings = get_top_movies_and_ratings(user_recommendation_df, 
+                                                                 user_id, movies_df)
+    top_movie_recs = list(top_movies_and_rankings.keys())
+    user_rates = ratings_df[ratings_df['userId']==user_id]
+    good_user_rates = user_rates[user_rates['rating']>3]
+    user_movies = []
+    for movieId in list(good_user_rates['movieId']):
+        user_movies.append(movies_df[movies_df['movieId']==movieId]['title'].values[0])
+    print('users liked movies:\n', user_movies)
+    print('users recommended movies:\n', top_movie_recs)
