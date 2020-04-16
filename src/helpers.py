@@ -1,5 +1,6 @@
 import pandas as pd
 import numpy as np
+import pickle
 import os
 
 from pyspark.sql import SparkSession
@@ -7,6 +8,7 @@ from pyspark import SparkContext
 import pyspark.sql
 
 from pyspark.ml.recommendation import ALS
+from pyspark.ml.recommendation import ALSModel
 from pyspark.ml.feature import VectorAssembler
 from pyspark.ml.evaluation import RegressionEvaluator
 
@@ -14,8 +16,8 @@ from sklearn.preprocessing import LabelEncoder
 from sklearn.preprocessing import OneHotEncoder
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import MultiLabelBinarizer
-
-spark = SparkSession(SparkContext())
+sc = SparkContext()
+spark = SparkSession(sc)
 
 # VARIOUS HELPERS
 def get_ids_from_titles(title_list, movies_df):
@@ -94,7 +96,14 @@ def evaluate_model():
                                 predictionCol="prediction")
     rmse = evaluator.evaluate(predictions)
     print("RMSE = " + str(rmse))
-    
+
+def save_model(model, file_path):
+    model.save(file_path)
+    print('model saved to file path')
+
+def load_model(file_path):
+    model = ALSModel().load(file_path)
+    return model
 
 # SPARK HELPERS
 def spark_to_pandas(sparkDataFrame):
