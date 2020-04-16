@@ -40,15 +40,19 @@ def load_format_data(data_path):
     
     return ratings_df, movies_df, encoded_movies_df, tags_df, enoded_tags_df
 
+def format_ratings(ratings_df):
+    ratings_df = ratings_df.drop('timestamp', axis=1)
+    ratings = spark.createDataFrame(ratings_df)
+    return ratings
+
 def load_format_data_for_model(data_path):
     '''
     Call load_format_data, drop irrelevant columns and return train/test
     data as spark dataframes
     '''
     ratings_df, movies_df, encoded_movies_df, tags_df, enoded_tags_df = load_format_data(data_path)
-    ratings_df = ratings_df.drop('timestamp', axis=1)
-    ratings = spark.createDataFrame(ratings_df)
-    (train, test) = ratings.randomSplit([0.8, 0.2])
+    ratings_df = format_ratings(ratings_df)
+    (train, test) = ratings_df.randomSplit([0.8, 0.2])
     return train, test
 
 
@@ -153,3 +157,35 @@ def user_liked_compared_recommended(ratings_df, movies_df, user_recommendation_d
         user_movies.append(movies_df[movies_df['movieId']==movieId]['title'].values[0])
     print('users liked movies:\n', user_movies)
     print('users recommended movies:\n', top_movie_recs)
+
+    
+# NEW USER HELPERS
+def convert_input_to_spark(movieIds, ratings, movies_df):
+    '''
+    format for input is a dictionary where the keys are full titles of movies as they appear\
+    in the MovieLens dataset, values are explicit ratings of movies (5 for 'liked', 0.5 for 'did
+    not like', and 0s indicating a lack of feedback for that movie)
+    '''
+    us = [9999]*len(tits)
+      
+    movieIds = pd.Series(movieIds)
+    ratings = pd.Series(ratings)
+    us = pd.Series(us)
+    
+    df = pd.DataFrame()
+    df['userId'] = us
+    df['movieId'] = movieIds
+    df['rating'] = rats
+    sample = format_ratings(df)
+    return sample
+
+def predict_for_new_user(model, sample, movie_df):
+    predictions = model.transform(sample)
+    prediction_ids = spark_to_pandas(predictions).sort_values('prediction', 
+                                                              ascending=False)[:5]['movieId']
+    prediction_titles = []
+    for id in prediction_ids:
+        title = movie_df[movie_df['movieId']==id]['title']
+        prediction_titles.append(title.values[0])
+        
+    return prediction_titles
