@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html >
+<head>
+  <meta charset="UTF-8">
+  <title>Deployment</title>
+  <link href='https://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Arimo' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Hind:300' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>
+<link rel="stylesheet" href="../static/css/sty.css" /> 
+<!-- <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}"> -->
+  
+</head>
+
+<body style="background: #000;">
+ <div class="login">
+	<h1>Churn Predictor</h1>
+
+     <!-- Main Input For Receiving Query to our ML -->
+    <form action="{{ url_for('predict')}}"method="post">
+    	<input type="text" name="account length" placeholder="account length" required="required" />
+      <input type="text" name="international plan" placeholder="international plan (yes/no)" required="required" />
+      <input type="text" name="voice mail plan" placeholder="voice mail plan (yes/no)" required="required" />
+      <input type="text" name="number vmail messages" placeholder="number vmail messages" required="required" />
+      <input type="text" name="total day minutes" placeholder="total day minutes" required="required" />
+      <input type="text" name="total day calls" placeholder="total day calls" required="required" />
+      <input type="text" name="total day charge" placeholder="total day charge" required="required" />
+      <input type="text" name="total eve minutes" placeholder="total eve minutes" required="required" />
+      <input type="text" name="total eve calls" placeholder="total eve calls" required="required" />
+      <input type="text" name="total eve charge" placeholder="total eve charge" required="required" />
+      <input type="text" name="total night minutes" placeholder="total night minutes" required="required" />
+      <input type="text" name="total night calls" placeholder="total night calls" required="required" />
+      <input type="text" name="total night charge" placeholder="total night charge" required="required" />
+      <input type="text" name="total intl minutes" placeholder="total intl minutes" required="required" />
+      <input type="text" name="total intl calls" placeholder="total intl calls" required="required" />
+      <input type="text" name="total intl charge" placeholder="total intl charge" required="required" />
+      <input type="text" name="customer service calls" placeholder="customer service calls" required="required" />
+
+
+      <button type="submit" class="btn btn-primary btn-block btn-large">Predict Churn</button>
+    </form>
+
+   <br>
+   <br>
+   {{ prediction_text }}
+
+ </div>
+
+
+</body>
+</html>
