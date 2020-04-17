@@ -1,46 +1,57 @@
+import os
+import sys
+module_path = os.path.abspath(os.path.join(os.pardir))
+if module_path not in sys.path:
+    sys.path.append(module_path)
+    
+# scripts
+import src.rank_metrics as rank_metrics
+import src.helpers as helpers
+import src.table_encoder as table_encoder
+import src.metrics as metrics
+
 import numpy as np
 import pandas as pd
 from flask import Flask, request, jsonify, render_template
 import pickle
 
+
 app = Flask(__name__)
-model = pickle.load(open('model.pickle', 'rb'))
+
+ratings_df, movies_df, encoded_movies_df, tags_df, enoded_tags_df = helpers.load_format_data(
+    '../data/csv')
+model = helpers.load_model('../notebooks/als.model')
+
 
 @app.route('/')
 def home():
-    return render_template('index.html')
+    return render_template('index_2.html')
 
-@app.route('/predict',methods=['POST'])
-def predict():
 
-    features = [x for x in request.form.values()]
-    feature_names = [x for x in request.form.keys()]
+# @app.route('/ratings', methods=['POST'])
+# def ratings():
+#     ratings = [int(x) for x in request.form.values()]
+#     movieIds = [int(x) for x in request.form.keys()]
+    
+#     sample = helpers.convert_input_to_spark(movieIds, ratings, movies_df)
+#     prediction = helpers.predict_for_new_user(model, sample, movies_df)
+#     return render_template('index.html', recommendation_text=f'{prediction}')
 
-    df = pd.DataFrame([features], columns = feature_names)
+# if __name__ == "__main__":
+#     app.run(debug=True)
 
-    df['international plan'] = (df['international plan'] == 'yes').astype(int)
-    df['voice mail plan'] = (df['voice mail plan'] == 'yes').astype(int)
-
-    df['total charge'] = df['total day charge'] + df['total eve charge'] + df['total intl charge'] + df['total night charge']
-    df = df.drop(['total day charge', 'total eve charge', 'total intl charge', 'total night charge'], axis = 1)
-
-    df = df.apply(pd.to_numeric)
-
-    prediction = model.predict(df)[0]
-
-    if prediction:
-        return render_template('index.html', prediction_text = 'This customer is likely to leave soon.')
-    else:
-        return render_template('index.html', prediction_text = 'This customer will likely stay.')
-
-@app.route('/results',methods=['POST'])
-def results():
-
-    data = request.get_json(force=True)
-    prediction = model.predict([np.array(list(data.values()))])
-
-    output = prediction[0]
-    return jsonify(output)
-
+@app.route('/ratings', methods=['POST'])
+def ratings():
+    user_id = [int(x) for x in request.form.values()][0]
+    user_rows = ratings_df[ratings_df['userId']==user_id]
+    liked_ids = []
+    for mid in user_rows:
+        liked_ids.append(user_rows[user_rows['rating']>3]['movieId'])
+    user_liked = []
+    for movie_id in liked_ids:
+        user_liked.append(movies_df[movies_df['movieId']==movie_id]['title'])
+    prediction = helpers.predict_for_one_user(model, user_id, ratings_df, movies_df)
+    return render_template('index_2.html', recommendation_text=f'{prediction}', user_profile_text=f'{user_liked}')
+    
 if __name__ == "__main__":
     app.run(debug=True)

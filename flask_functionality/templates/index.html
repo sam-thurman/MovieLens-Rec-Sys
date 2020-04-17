@@ -1,51 +1,100 @@
 <!DOCTYPE html>
-<html >
+<html>
+
 <head>
   <meta charset="UTF-8">
   <title>Deployment</title>
   <link href='https://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
-<link href='https://fonts.googleapis.com/css?family=Arimo' rel='stylesheet' type='text/css'>
-<link href='https://fonts.googleapis.com/css?family=Hind:300' rel='stylesheet' type='text/css'>
-<link href='https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>
-<link rel="stylesheet" href="../static/css/sty.css" /> 
-<!-- <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}"> -->
-  
+  <link href='https://fonts.googleapis.com/css?family=Arimo' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Hind:300' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="../static/css/sty.css" />
+  <!-- <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}"> -->
+
 </head>
 
 <body style="background: #000;">
- <div class="login">
-	<h1>Churn Predictor</h1>
-
-     <!-- Main Input For Receiving Query to our ML -->
-    <form action="{{ url_for('predict')}}"method="post">
-    	<input type="text" name="account length" placeholder="account length" required="required" />
-      <input type="text" name="international plan" placeholder="international plan (yes/no)" required="required" />
-      <input type="text" name="voice mail plan" placeholder="voice mail plan (yes/no)" required="required" />
-      <input type="text" name="number vmail messages" placeholder="number vmail messages" required="required" />
-      <input type="text" name="total day minutes" placeholder="total day minutes" required="required" />
-      <input type="text" name="total day calls" placeholder="total day calls" required="required" />
-      <input type="text" name="total day charge" placeholder="total day charge" required="required" />
-      <input type="text" name="total eve minutes" placeholder="total eve minutes" required="required" />
-      <input type="text" name="total eve calls" placeholder="total eve calls" required="required" />
-      <input type="text" name="total eve charge" placeholder="total eve charge" required="required" />
-      <input type="text" name="total night minutes" placeholder="total night minutes" required="required" />
-      <input type="text" name="total night calls" placeholder="total night calls" required="required" />
-      <input type="text" name="total night charge" placeholder="total night charge" required="required" />
-      <input type="text" name="total intl minutes" placeholder="total intl minutes" required="required" />
-      <input type="text" name="total intl calls" placeholder="total intl calls" required="required" />
-      <input type="text" name="total intl charge" placeholder="total intl charge" required="required" />
-      <input type="text" name="customer service calls" placeholder="customer service calls" required="required" />
-
-
-      <button type="submit" class="btn btn-primary btn-block btn-large">Predict Churn</button>
+  <div class="login">
+    <h1>Movie Recommendations</h1>
+    <form action="{{ url_for('ratings')}}" method="post" id="Toy Story">
+      <p>Toy Story</p>
+      <select name="1" , id="Toy Story">
+        <option value="5">Liked Toy Story</option>
+        <option value="0.5">Did not like Toy Story</option>
+        <option value="0">Have not seen Toy Story</option>
+      </select>
+      <br>
+      <p>Forest Gump</p>
+      <select name="356" , id="Forest Gump">
+        <option value="5">Liked Forest Gump</option>
+        <option value="0.5">Did not like Forest Gump</option>
+        <option value="0">Have not seen Forest Gump</option>
+      </select>
+      <br>
+      <p>Shawshank Redemption</p>
+      <select name="318" , id="Shawshank Redemption">
+        <option value="5">Liked Shawshank Redemption</option>
+        <option value="0.5">Did not like Shawshank Redemption</option>
+        <option value="0">Have not seen Shawshank Redemption</option>
+      </select>
+      <br>
+      <p>Silence of the Lambs</p>
+      <select name="593" , id="Silence of the Lambs">
+        <option value="5">Liked Silence of the Lambs</option>
+        <option value="0.5">Did not like Silence of the Lambs</option>
+        <option value="0">Have not seen Silence of the Lambs</option>
+      </select>
+      <br>
+      <p>Pulp Fiction</p>
+      <select name="296" , id="Pulp Fiction">
+        <option value="5">Liked Pulp Fiction</option>
+        <option value="0.5">Did not Pulp Fiction</option>
+        <option value="0">Have not seen Pulp Fiction</option>
+      </select>
+      <br>
+      <p>The Matrix</p>
+      <select name="2571" , id="The Matrix">
+        <option value="5">Liked The Matrix</option>
+        <option value="0.5">Did not like The Matrix</option>
+        <option value="0">Have not seen The Matrix</option>
+      </select>
+      <br>
+      <p>American Beauty</p>
+      <select name="2858" , id="American Beauty">
+        <option value="5">Liked American Beauty</option>
+        <option value="0.5">Did not like American Beauty</option>
+        <option value="0">Have not seen American Beauty</option>
+      </select>
+      <br>
+      <p>Ace Ventura</p>
+      <select name="344" , id="Ace Ventura">
+        <option value="5">Liked Ace Ventura</option>
+        <option value="0.5">Did not like Ace Ventura</option>
+        <option value="0">Have not seen Ace Ventura</option>
+      </select>
+      <br>
+      <p>Jurassic Park</p>
+      <select name="480" , id="Jurassic Park">
+        <option value="5">Liked Jurassic Park</option>
+        <option value="0.5">Did not like Jurassic Park</option>
+        <option value="0">Have not seen Jurassic Park</option>
+      </select>
+      <br>
+      <p>Braveheart</p>
+      <select name="110" , id="Braveheart">
+        <option value="5">Liked Braveheart</option>
+        <option value="0.5">Did not like Braveheart</option>
+        <option value="0">Have not seen Braveheart</option>
+      </select>
+      <br>
+      <div>
+        <button type="submit" class="movie-feedback-submit">Submit</button>
+      </div>
     </form>
-
-   <br>
-   <br>
-   {{ prediction_text }}
-
- </div>
-
-
+    <div>
+      {{ recommendation_text }}
+    </div>
+  </div>
 </body>
+
 </html>

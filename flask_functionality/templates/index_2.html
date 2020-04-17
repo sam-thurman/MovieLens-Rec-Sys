@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>Deployment</title>
+  <link href='https://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Arimo' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Hind:300' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="../static/css/sty.css" />
+  <!-- <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}"> -->
+
+</head>
+
+<body style="background: #000;">
+  <div class="login">
+    <h1>Movie Recommendations</h1>
+    <form action="{{ url_for('ratings')}}" method="post" id="Toy Story">
+      <p>Enter user ID (1-610) to get some movie recommendations:</p>
+      <input type="text" id="userID" name="userId" placeholder='enter ID here' required minlength="1" maxlength="3"
+        size="10">
+      <button>
+        <submit>SUBMIT</submit>
+      </button>
+    </form>
+    <div>
+      <p> This user was recommended </p>
+      <br>
+      {{ recommendation_text }}
+    </div>
+    <br>
+    <div>
+      <p> This user liked </p>
+      <br>
+      {{ user_profile_text }}
+    </div>
+  </div>
+  <div>
+
+  </div>
+  <div>
+
+  </div>
+</body>
+
+</html>
