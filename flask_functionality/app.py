@@ -39,7 +39,7 @@ def home():
 
 # if __name__ == "__main__":
 #     app.run(debug=True)
-
+t
 @app.route('/ratings', methods=['POST'])
 def ratings():
     user_id = [int(x) for x in request.form.values()][0]
