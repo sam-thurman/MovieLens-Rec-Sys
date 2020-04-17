@@ -39,17 +39,11 @@ def home():
 
 # if __name__ == "__main__":
 #     app.run(debug=True)
-t
+
 @app.route('/ratings', methods=['POST'])
 def ratings():
     user_id = [int(x) for x in request.form.values()][0]
-    user_rows = ratings_df[ratings_df['userId']==user_id]
-    liked_ids = []
-    for mid in user_rows:
-        liked_ids.append(user_rows[user_rows['rating']>3]['movieId'])
-    user_liked = []
-    for movie_id in liked_ids:
-        user_liked.append(movies_df[movies_df['movieId']==movie_id]['title'])
+    user_liked = helpers.get_user_liked_movie_titles(user_id, ratings_df, movies_df)
     prediction = helpers.predict_for_one_user(model, user_id, ratings_df, movies_df)
     return render_template('index_2.html', recommendation_text=f'{prediction}', user_profile_text=f'{user_liked}')
     

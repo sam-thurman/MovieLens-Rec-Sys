@@ -175,7 +175,7 @@ def get_top_movies_and_ratings(user_recommendations_df, user_id, movies_df):
 
 
 def get_user_liked_movie_ids(user_id, ratings_df):
-    user_rates = ratings_df[ratings_df['userId'] == 1]
+    user_rates = ratings_df[ratings_df['userId'] == user_id]
     good_user_rates = user_rates[user_rates['rating'] > 3]
     liked_movies = list(good_user_rates['movieId'])
     return liked_movies
