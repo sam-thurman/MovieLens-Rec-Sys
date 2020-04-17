@@ -39,3 +39,25 @@ def genre_encoder(movies):
             encoded_genres.at[index, genre] = 1
             
     return encoded_genres
+
+def rating_vectorizer(ratings):
+    users_set = ratings['userId'].unique()
+    users_set.sort()
+
+    movie_set = ratings['movieId'].unique()
+    movie_set.sort()
+
+    user_frame = pd.DataFrame(index = users_set, columns = movie_set)
+    user_frame = user_frame.fillna(0)
+
+    counter = 0
+    quarter = int(ratings.shape[0] / 4)
+    for row in ratings.iterrows():
+        counter += 1
+        if counter % (quarter) == 0:
+            print(counter // quarter * 25, '% of the way done')
+        row = row[1]
+        _userId = row['userId']
+        _movieId = row['movieId']
+        user_frame.loc[_userId][_movieId] = row['rating']
+    return user_frame
