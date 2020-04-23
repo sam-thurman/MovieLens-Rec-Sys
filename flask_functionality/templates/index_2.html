@@ -7,10 +7,10 @@
   <link href='https://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
   <link href='https://fonts.googleapis.com/css?family=Arimo' rel='stylesheet' type='text/css'>
   <link href='https://fonts.googleapis.com/css?family=Hind:300' rel='stylesheet' type='text/css'>
+
   <link href='https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>
   <link rel="stylesheet" href="../static/css/sty.css" />
-  <!-- <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}"> -->
-
+  <link href="https://fonts.googleapis.com/css2?family=Tinos&display=swap" rel="stylesheet" type="text/css">
 </head>
 
 <body style="background: #000;">
@@ -27,13 +27,13 @@
     <div>
       <p> This user was recommended </p>
       <br>
-      {{ recommendation_text }}
+      <p>{{ recommendation_text }}</p>
     </div>
     <br>
     <div>
       <p> This user liked </p>
       <br>
-      {{ user_profile_text }}
+      <p>{{ user_profile_text }}</p>
     </div>
   </div>
   <div>
