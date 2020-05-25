@@ -182,7 +182,7 @@ def get_user_liked_movie_ids(user_id, ratings_df):
 
 
 def get_user_liked_movie_titles(user_id, ratings_df, movies_df):
-    ids = get_user_liked_movie_ids(5, ratings_df)
+    ids = get_user_liked_movie_ids(user_id, ratings_df)
     movie_titles = []
     for id in ids:
         movie_title = movies_df[movies_df['movieId'] == id]['title']
